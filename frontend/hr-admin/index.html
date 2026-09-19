@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalentFlow AI - HR Admin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">TF</div>
+            <div>
+                <h2>TalentFlow</h2>
+                <span>AI Workforce Intelligence</span>
+            </div>
+        </div>
+
+        <nav>
+            <button class="nav-item active" onclick="showSection('overview')">
+                <span>📊</span> Overview
+            </button>
+
+            <button class="nav-item" onclick="showSection('talent')">
+                <span>👥</span> Talent Discovery
+            </button>
+
+            <button class="nav-item" onclick="showSection('roles')">
+                <span>🎯</span> Role Matching
+            </button>
+
+            <button class="nav-item" onclick="showSection('gaps')">
+                <span>📈</span> Skill Gaps
+            </button>
+
+            <button class="nav-item" onclick="showSection('learning')">
+                <span>📚</span> Learning Insights
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="admin-card">
+                <div class="avatar">HR</div>
+                <div>
+                    <strong>HR Admin</strong>
+                    <small>Administrator</small>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <h1 id="page-title">Workforce Overview</h1>
+                <p>AI-powered workforce intelligence</p>
+            </div>
+
+            <div class="top-actions">
+                <div class="notification">🔔</div>
+                <div class="admin-avatar">HR</div>
+            </div>
+        </header>
+
+
+        <!-- OVERVIEW -->
+
+        <section id="overview" class="section active">
+
+            <div class="welcome">
+                <div>
+                    <h2>Good morning, HR Team 👋</h2>
+                    <p>Here's your organization's talent intelligence snapshot.</p>
+                </div>
+
+                <button class="primary-btn" onclick="runAIAnalysis()">
+                    ✨ Run AI Analysis
+                </button>
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div>
+                        <span>Total Employees</span>
+                        <strong id="employee-count">1</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🧠</div>
+                    <div>
+                        <span>Skills Tracked</span>
+                        <strong id="skill-count">12</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div>
+                        <span>Internal Roles</span>
+                        <strong>1</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📈</div>
+                    <div>
+                        <span>Skill Gaps</span>
+                        <strong>2</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Talent Intelligence</h3>
+                            <p>AI-discovered employee capabilities</p>
+                        </div>
+                        <span class="ai-badge">AI Powered</span>
+                    </div>
+
+                    <div class="employee-row">
+
+                        <div class="employee-info">
+                            <div class="large-avatar">AK</div>
+
+                            <div>
+                                <strong>Arun Kumar</strong>
+                                <span>Software Engineer · Engineering</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-tags">
+                            <span>Java</span>
+                            <span>SQL</span>
+                            <span>REST API</span>
+                        </div>
+
+                        <div class="match-score">
+                            <strong>73%</strong>
+                            <span>Role Match</span>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Emerging Skill Gaps</h3>
+                            <p>Areas requiring development</p>
+                        </div>
+                    </div>
+
+                    <div class="gap-item">
+                        <div>
+                            <strong>Docker</strong>
+                            <span>Backend Engineer</span>
+                        </div>
+
+                        <div class="progress">
+                            <div style="width: 0%"></div>
+                        </div>
+
+                        <b>High</b>
+                    </div>
+
+                    <div class="gap-item">
+                        <div>
+                            <strong>AWS</strong>
+                            <span>Backend Engineer</span>
+                        </div>
+
+                        <div class="progress">
+                            <div style="width: 0%"></div>
+                        </div>
+
+                        <b>High</b>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TALENT DISCOVERY -->
+
+        <section id="talent" class="section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Talent Discovery</h2>
+                    <p>Discover hidden and transferable employee skills.</p>
+                </div>
+
+                <input
+                    type="text"
+                    id="employeeSearch"
+                    placeholder="Search employees..."
+                    onkeyup="searchEmployees()"
+                >
+            </div>
+
+
+            <div class="panel employee-panel">
+
+                <div class="table-header">
+                    <span>Employee</span>
+                    <span>Current Role</span>
+                    <span>AI Discovered Skills</span>
+                    <span>Experience</span>
+                    <span>Career Goal</span>
+                </div>
+
+                <div class="table-row" id="employee-row">
+
+                    <div class="employee-info">
+                        <div class="large-avatar">AK</div>
+
+                        <div>
+                            <strong>Arun Kumar</strong>
+                            <span>EMP001</span>
+                        </div>
+                    </div>
+
+                    <span>Software Engineer</span>
+
+                    <div class="skill-tags">
+                        <span>Java</span>
+                        <span>SQL</span>
+                        <span>REST API</span>
+                    </div>
+
+                    <span>2 years</span>
+
+                    <span class="goal">Backend Engineer</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ROLE MATCHING -->
+
+        <section id="roles" class="section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Internal Role Matching</h2>
+                    <p>AI-powered matching between employees and internal opportunities.</p>
+                </div>
+            </div>
+
+
+            <div class="role-card">
+
+                <div class="role-header">
+
+                    <div>
+                        <span class="role-label">INTERNAL OPPORTUNITY</span>
+                        <h2>Backend Engineer</h2>
+                        <p>Engineering · Full Time</p>
+                    </div>
+
+                    <div class="big-match">
+                        <strong>73%</strong>
+                        <span>AI Match</span>
+                    </div>
+
+                </div>
+
+
+                <div class="match-details">
+
+                    <div>
+                        <h4>Why Arun matches</h4>
+
+                        <ul>
+                            <li>Strong Java experience</li>
+                            <li>SQL database experience</li>
+                            <li>REST API project experience</li>
+                        </ul>
+                    </div>
+
+
+                    <div>
+                        <h4>Development Areas</h4>
+
+                        <ul class="warning-list">
+                            <li>Docker</li>
+                            <li>AWS</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SKILL GAPS -->
+
+        <section id="gaps" class="section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Skill Gap Analysis</h2>
+                    <p>Identify capabilities needed for future roles.</p>
+                </div>
+            </div>
+
+
+            <div class="gap-grid">
+
+                <div class="gap-card">
+                    <div class="gap-top">
+                        <div class="gap-icon">🐳</div>
+                        <span class="priority high">HIGH PRIORITY</span>
+                    </div>
+
+                    <h3>Docker</h3>
+
+                    <p>
+                        Required for Backend Engineer role but currently
+                        not present in the employee profile.
+                    </p>
+
+                    <div class="gap-bar">
+                        <div style="width: 0%"></div>
+                    </div>
+
+                    <div class="gap-footer">
+                        <span>Current: 0</span>
+                        <strong>Required: 60</strong>
+                    </div>
+                </div>
+
+
+                <div class="gap-card">
+                    <div class="gap-top">
+                        <div class="gap-icon">☁️</div>
+                        <span class="priority high">HIGH PRIORITY</span>
+                    </div>
+
+                    <h3>AWS</h3>
+
+                    <p>
+                        Cloud knowledge is required for the target
+                        Backend Engineer role.
+                    </p>
+
+                    <div class="gap-bar">
+                        <div style="width: 0%"></div>
+                    </div>
+
+                    <div class="gap-footer">
+                        <span>Current: 0</span>
+                        <strong>Required: 50</strong>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LEARNING -->
+
+        <section id="learning" class="section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Learning Insights</h2>
+                    <p>AI-generated development recommendations.</p>
+                </div>
+            </div>
+
+
+            <div class="learning-grid">
+
+                <div class="learning-card">
+                    <span class="course-type">COURSE</span>
+                    <h3>Docker Fundamentals</h3>
+                    <p>Build containerization skills for backend deployment.</p>
+                    <button>Recommend</button>
+                </div>
+
+                <div class="learning-card">
+                    <span class="course-type">COURSE</span>
+                    <h3>AWS Cloud Essentials</h3>
+                    <p>Develop foundational AWS cloud capabilities.</p>
+                    <button>Recommend</button>
+                </div>
+
+                <div class="learning-card">
+                    <span class="course-type">PROJECT</span>
+                    <h3>Cloud Deployment Project</h3>
+                    <p>Apply Docker and AWS skills through a practical project.</p>
+                    <button>Assign Project</button>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
