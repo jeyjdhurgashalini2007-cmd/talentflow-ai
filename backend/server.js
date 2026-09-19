@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
+const healthRoutes = require("./routes/healthRoutes");
+
 const app = express();
 
 app.use(cors());
@@ -15,12 +17,7 @@ app.get("/", (req, res) => {
     });
 });
 
-app.get("/api/health", (req, res) => {
-    res.json({
-        status: "OK",
-        service: "TalentFlow AI Backend"
-    });
-});
+app.use("/api/health", healthRoutes);
 
 app.listen(PORT, () => {
     console.log(`TalentFlow AI Backend running on port ${PORT}`);
