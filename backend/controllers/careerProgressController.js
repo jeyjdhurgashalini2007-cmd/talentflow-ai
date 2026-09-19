@@ -28,8 +28,8 @@ const getCareerProgress = (req, res) => {
 
     const employeeSkills = employee.skills || [];
 
-    const skillGaps = role.required_skills
-        .map((requiredSkill) => {
+    const skillAnalysis = role.required_skills.map(
+        (requiredSkill) => {
             const employeeSkill = employeeSkills.find(
                 (skill) =>
                     skill.name.toLowerCase() ===
@@ -49,8 +49,43 @@ const getCareerProgress = (req, res) => {
                     0
                 )
             };
-        })
-        .filter((skill) => skill.gap > 0);
+        }
+    );
+
+    const skillGaps = skillAnalysis.filter(
+        (skill) => skill.gap > 0
+    );
+
+    const totalRequiredLevel = skillAnalysis.reduce(
+        (total, skill) => total + skill.required_level,
+        0
+    );
+
+    const totalCurrentLevel = skillAnalysis.reduce(
+        (total, skill) =>
+            total + Math.min(
+                skill.current_level,
+                skill.required_level
+            ),
+        0
+    );
+
+    const overallProgressPercentage =
+        totalRequiredLevel > 0
+            ? Math.round(
+                  (totalCurrentLevel / totalRequiredLevel) * 100
+              )
+            : 100;
+
+    const recommendedCourses = courses.filter((course) =>
+        skillGaps.some((gap) =>
+            course.skills.some(
+                (courseSkill) =>
+                    courseSkill.toLowerCase() ===
+                    gap.skill.toLowerCase()
+            )
+        )
+    );
 
     const employeeProgress = learningProgress.filter(
         (progress) => progress.employee_id === employeeId
@@ -76,7 +111,9 @@ const getCareerProgress = (req, res) => {
         employee_name: employee.name,
         current_role: employee.current_role,
         target_role: role.title,
+        overall_progress_percentage: overallProgressPercentage,
         skill_gaps: skillGaps,
+        recommended_courses: recommendedCourses,
         learning_progress: progressWithCourseNames
     });
 };
