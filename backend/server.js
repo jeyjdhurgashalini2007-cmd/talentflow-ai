@@ -37,6 +37,14 @@ app.use("/api/course-recommendations", courseRecommendationRoutes);
 app.use("/api/learning-progress", learningProgressRoutes);
 app.use("/api/career-progress", careerProgressRoutes);
 
+// Handle unknown routes
+app.use((req, res) => {
+    res.status(404).json({
+        error: "Route not found",
+        path: req.originalUrl
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`TalentFlow AI Backend running on port ${PORT}`);
 });
