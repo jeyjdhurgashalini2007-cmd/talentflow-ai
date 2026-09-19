@@ -34,6 +34,14 @@ const addLearningProgress = (req, res) => {
         progress_percentage
     } = req.body;
 
+    // Validate required fields
+    if (!course_id || !status || progress_percentage === undefined) {
+        return res.status(400).json({
+            error: "course_id, status and progress_percentage are required"
+        });
+    }
+
+    // Validate employee
     const employee = employees.find(
         (employee) => employee.id === employeeId
     );
@@ -44,6 +52,7 @@ const addLearningProgress = (req, res) => {
         });
     }
 
+    // Validate course
     const course = courses.find(
         (course) => course.id === course_id
     );
@@ -54,17 +63,12 @@ const addLearningProgress = (req, res) => {
         });
     }
 
+    // Validate status
     const allowedStatuses = [
         "not_started",
         "in_progress",
         "completed"
     ];
-
-    if (!course_id || !status || progress_percentage === undefined) {
-        return res.status(400).json({
-            error: "course_id, status and progress_percentage are required"
-        });
-    }
 
     if (!allowedStatuses.includes(status)) {
         return res.status(400).json({
@@ -72,6 +76,7 @@ const addLearningProgress = (req, res) => {
         });
     }
 
+    // Validate progress percentage
     if (
         typeof progress_percentage !== "number" ||
         progress_percentage < 0 ||
@@ -79,6 +84,19 @@ const addLearningProgress = (req, res) => {
     ) {
         return res.status(400).json({
             error: "progress_percentage must be a number between 0 and 100"
+        });
+    }
+
+    // Prevent duplicate course progress
+    const existingProgress = learningProgress.find(
+        (progress) =>
+            progress.employee_id === employeeId &&
+            progress.course_id === course_id
+    );
+
+    if (existingProgress) {
+        return res.status(409).json({
+            error: "Learning progress for this course already exists"
         });
     }
 
