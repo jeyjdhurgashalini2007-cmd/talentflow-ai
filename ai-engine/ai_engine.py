@@ -255,12 +255,9 @@ def analyze_employee(employee_id, target_role_id=None):
 
 
 if __name__ == "__main__":
+    employee_id = sys.argv[1] if len(sys.argv) > 1 else "EMP001"
+    target_role_id = sys.argv[2] if len(sys.argv) > 2 else None
 
-    result = analyze_employee("EMP001")
+    result = analyze_employee(employee_id, target_role_id)
 
-    print(
-        json.dumps(
-            result,
-            indent=2
-        )
-    )
+    print(json.dumps(result))
