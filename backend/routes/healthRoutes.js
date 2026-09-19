@@ -4,9 +4,9 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
     res.json({
-        status: "OK",
-        service: "TalentFlow AI Backend",
-        message: "API is healthy"
+        status: "ok",
+        message: "TalentFlow AI Backend is healthy",
+        timestamp: new Date().toISOString()
     });
 });
 
