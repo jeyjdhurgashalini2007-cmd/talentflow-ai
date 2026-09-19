@@ -1,0 +1,74 @@
+[
+  {
+    "id": "SK001",
+    "name": "Java",
+    "category": "Programming",
+    "aliases": ["Java SE", "Java Programming"]
+  },
+  {
+    "id": "SK002",
+    "name": "Python",
+    "category": "Programming",
+    "aliases": ["Python Programming"]
+  },
+  {
+    "id": "SK003",
+    "name": "JavaScript",
+    "category": "Programming",
+    "aliases": ["JS", "ECMAScript"]
+  },
+  {
+    "id": "SK004",
+    "name": "SQL",
+    "category": "Database",
+    "aliases": ["Structured Query Language"]
+  },
+  {
+    "id": "SK005",
+    "name": "REST API",
+    "category": "Backend",
+    "aliases": ["REST", "RESTful API"]
+  },
+  {
+    "id": "SK006",
+    "name": "Git",
+    "category": "Tools",
+    "aliases": ["Git Version Control"]
+  },
+  {
+    "id": "SK007",
+    "name": "Docker",
+    "category": "Cloud",
+    "aliases": ["Containerization"]
+  },
+  {
+    "id": "SK008",
+    "name": "AWS",
+    "category": "Cloud",
+    "aliases": ["Amazon Web Services"]
+  },
+  {
+    "id": "SK009",
+    "name": "Machine Learning",
+    "category": "AI",
+    "aliases": ["ML"]
+  },
+  {
+    "id": "SK010",
+    "name": "Data Analysis",
+    "category": "Data",
+    "aliases": ["Data Analytics"]
+  },
+  {
+    "id": "SK011",
+    "name": "Communication",
+    "category": "Soft Skill",
+    "aliases": ["Communication Skills"]
+  },
+  {
+    "id": "SK012",
+    "name": "Problem Solving",
+    "category": "Soft Skill",
+    "aliases": ["Analytical Thinking"]
+  }
+]
