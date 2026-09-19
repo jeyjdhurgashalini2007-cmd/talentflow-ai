@@ -34,14 +34,12 @@ const addLearningProgress = (req, res) => {
         progress_percentage
     } = req.body;
 
-    // Validate required fields
     if (!course_id || !status || progress_percentage === undefined) {
         return res.status(400).json({
             error: "course_id, status and progress_percentage are required"
         });
     }
 
-    // Validate employee
     const employee = employees.find(
         (employee) => employee.id === employeeId
     );
@@ -52,7 +50,6 @@ const addLearningProgress = (req, res) => {
         });
     }
 
-    // Validate course
     const course = courses.find(
         (course) => course.id === course_id
     );
@@ -63,7 +60,6 @@ const addLearningProgress = (req, res) => {
         });
     }
 
-    // Validate status
     const allowedStatuses = [
         "not_started",
         "in_progress",
@@ -76,7 +72,6 @@ const addLearningProgress = (req, res) => {
         });
     }
 
-    // Validate progress percentage
     if (
         typeof progress_percentage !== "number" ||
         progress_percentage < 0 ||
@@ -87,7 +82,6 @@ const addLearningProgress = (req, res) => {
         });
     }
 
-    // Prevent duplicate course progress
     const existingProgress = learningProgress.find(
         (progress) =>
             progress.employee_id === employeeId &&
@@ -115,7 +109,85 @@ const addLearningProgress = (req, res) => {
     });
 };
 
+const updateLearningProgress = (req, res) => {
+    const { employeeId, courseId } = req.params;
+
+    const {
+        status,
+        progress_percentage
+    } = req.body;
+
+    const employee = employees.find(
+        (employee) => employee.id === employeeId
+    );
+
+    if (!employee) {
+        return res.status(404).json({
+            error: "Employee not found"
+        });
+    }
+
+    const course = courses.find(
+        (course) => course.id === courseId
+    );
+
+    if (!course) {
+        return res.status(404).json({
+            error: "Course not found"
+        });
+    }
+
+    const allowedStatuses = [
+        "not_started",
+        "in_progress",
+        "completed"
+    ];
+
+    if (!status || progress_percentage === undefined) {
+        return res.status(400).json({
+            error: "status and progress_percentage are required"
+        });
+    }
+
+    if (!allowedStatuses.includes(status)) {
+        return res.status(400).json({
+            error: "status must be not_started, in_progress, or completed"
+        });
+    }
+
+    if (
+        typeof progress_percentage !== "number" ||
+        progress_percentage < 0 ||
+        progress_percentage > 100
+    ) {
+        return res.status(400).json({
+            error: "progress_percentage must be a number between 0 and 100"
+        });
+    }
+
+    const existingProgress = learningProgress.find(
+        (progress) =>
+            progress.employee_id === employeeId &&
+            progress.course_id === courseId
+    );
+
+    if (!existingProgress) {
+        return res.status(404).json({
+            error: "Learning progress not found"
+        });
+    }
+
+    existingProgress.status = status;
+    existingProgress.progress_percentage = progress_percentage;
+
+    res.json({
+        message: "Learning progress updated successfully",
+        learning_progress: existingProgress
+    });
+};
+
 module.exports = {
     getLearningProgress,
-    addLearningProgress
+    addLearningProgress,
+    updateLearningProgress
 };
