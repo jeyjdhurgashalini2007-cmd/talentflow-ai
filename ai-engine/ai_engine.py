@@ -9,7 +9,7 @@ SERVICES_DIR = os.path.join(
 )
 
 sys.path.insert(0, SERVICES_DIR)
-
+from technology_recommender import recommend_technology
 from skill_extractor import extract_skills
 from skill_normalizer import normalize_detected_skills
 from skill_profiler import build_skill_profile
@@ -220,7 +220,14 @@ def analyze_employee(employee_id, target_role_id=None):
             courses,
             projects
         )
-
+    technology_recommendation = recommend_technology(
+        skill_profile,
+        project_requirements=[
+            skill["skill"]
+            for skill in target_role.get("required_skills", [])
+        ] if target_role else []
+    )
+    
     # ------------------------------------------------
     # 9. Final AI response
     # ------------------------------------------------
@@ -250,7 +257,8 @@ def analyze_employee(employee_id, target_role_id=None):
 
         "skill_gap": skill_gap,
 
-        "recommendations": recommendations
+        "recommendations": recommendations,
+        "technology_recommendation": technology_recommendation
     }
 
 
