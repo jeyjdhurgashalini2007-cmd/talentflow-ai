@@ -21,15 +21,31 @@ const addLearningProgress = (req, res) => {
         progress_percentage
     } = req.body;
 
+    const allowedStatuses = [
+        "not_started",
+        "in_progress",
+        "completed"
+    ];
+
     if (!course_id || !status || progress_percentage === undefined) {
         return res.status(400).json({
             error: "course_id, status and progress_percentage are required"
         });
     }
 
-    if (progress_percentage < 0 || progress_percentage > 100) {
+    if (!allowedStatuses.includes(status)) {
         return res.status(400).json({
-            error: "progress_percentage must be between 0 and 100"
+            error: "status must be not_started, in_progress, or completed"
+        });
+    }
+
+    if (
+        typeof progress_percentage !== "number" ||
+        progress_percentage < 0 ||
+        progress_percentage > 100
+    ) {
+        return res.status(400).json({
+            error: "progress_percentage must be a number between 0 and 100"
         });
     }
 
