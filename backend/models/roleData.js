@@ -1,0 +1,36 @@
+const roles = [
+    {
+        id: "ROLE001",
+        title: "Backend Engineer",
+        department: "Engineering",
+        required_skills: [
+            {
+                skill: "Java",
+                level: 80,
+                importance: 0.25
+            },
+            {
+                skill: "SQL",
+                level: 75,
+                importance: 0.20
+            },
+            {
+                skill: "REST API",
+                level: 80,
+                importance: 0.25
+            },
+            {
+                skill: "Docker",
+                level: 60,
+                importance: 0.15
+            },
+            {
+                skill: "AWS",
+                level: 50,
+                importance: 0.15
+            }
+        ]
+    }
+];
+
+module.exports = roles;
