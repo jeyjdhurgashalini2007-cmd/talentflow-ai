@@ -8,6 +8,7 @@ const courseRoutes = require("./routes/courseRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const roleRoutes = require("./routes/roleRoutes");
 const skillRoutes = require("./routes/skillRoutes");
+const skillGapRoutes = require("./routes/skillGapRoutes");
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/api/courses", courseRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/roles", roleRoutes);
 app.use("/api/skills", skillRoutes);
+app.use("/api/skill-gaps", skillGapRoutes);
 
 app.listen(PORT, () => {
     console.log(`TalentFlow AI Backend running on port ${PORT}`);
